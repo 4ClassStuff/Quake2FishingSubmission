@@ -21,4 +21,11 @@ To see commits, different repository: https://github.com/4ClassStuff/QuakeIITheM
 
 The mod is under the Submission branch
 
-To play the mod without compiling, download the files in master branch
+Compile the code, put the gamex86.dll in the mod folder replacing the original, download config.cfg and put in to Quake 2 folder
+
+
+In Game:
+Press N to see money
+open console and type: give fishingrod
+press f to fish
+press arrow keys according to the message
