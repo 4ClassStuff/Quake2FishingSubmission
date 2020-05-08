@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "g_local.h"
 #include "m_player.h"
 
+char* InputList[100];
+
 
 char *ClientTeam (edict_t *ent)
 {
@@ -899,6 +901,65 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+int inputCount = 0;
+extern char DDRinput[100];
+
+void Cmd_DDR(edict_t *ent){
+	_Bool fished = false;
+	char *input;
+	input = gi.args();
+	gi.cprintf(ent, PRINT_HIGH, "TEST in Cmd_DDR\n");
+
+	
+	if(inputCount == 0){
+
+
+		strcpy(InputList, input);
+		inputCount += 1;
+		gi.cprintf(ent, PRINT_HIGH, "Input Count: %d\n", inputCount);
+		gi.cprintf(ent, PRINT_HIGH, "%s\n", InputList);
+
+	}
+	else{
+
+		strcat(InputList, input);
+		inputCount += 1;
+		gi.cprintf(ent, PRINT_HIGH, "Input Count: %d\n", inputCount);
+		gi.cprintf(ent, PRINT_HIGH, "%s\n", InputList);
+		
+		if (inputCount == 4){
+			gi.cprintf(ent, PRINT_HIGH, "Input COMPARING\n");
+			gi.cprintf(ent, PRINT_HIGH, "Input COMPARING %s AND %s\n",InputList, DDRinput);
+
+			fished = true;
+
+			/*if (strcmp(InputList, DDRinput) == 0){
+			fished = true;
+			gi.cprintf(ent, PRINT_HIGH, "TEST in 4 matched\n");
+
+			}
+			else{
+			inputCount = 0;
+			gi.cprintf(ent, PRINT_HIGH, "TEST in 4 did not match\n");
+
+			//memset(InputList, 0, sizeof(InputList));
+			}*/
+		}
+	}
+
+	if (fished == true){
+		gi.cprintf(ent, PRINT_HIGH, "SUCCESSFULLY caught!\n");
+		free(DDRinput);
+	}
+
+
+}
+
+
+
+
+
+
 
 /*
 =================
@@ -987,6 +1048,12 @@ void ClientCommand (edict_t *ent)
 		Cmd_Wave_f (ent);
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
+
+
+
+	else if (Q_stricmp(cmd, "DDR") == 0)
+		Cmd_DDR(ent);
+
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

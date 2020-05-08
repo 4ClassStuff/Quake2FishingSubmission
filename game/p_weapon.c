@@ -28,6 +28,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 static qboolean	is_quad;
 static byte		is_silenced;
 
+char DDRinput[100];
+_Bool fished = false;
+
 
 void weapon_grenade_fire (edict_t *ent, qboolean held);
 
@@ -804,8 +807,8 @@ void weapon_fishingrod_fire(edict_t *ent)
 	casted = true;
 
 	gi.cprintf(ent, PRINT_HIGH, "%.2f\n", level.time);
-	gi.cprintf(ent, PRINT_HIGH, "%d\n", rand()%100);
-	
+	gi.cprintf(ent, PRINT_HIGH, "%d\n", rand() % 100);
+
 	char *i1;
 	char *i2;
 	char *i3;
@@ -869,38 +872,39 @@ void weapon_fishingrod_fire(edict_t *ent)
 		i4 = "LEFT";
 
 
+	strcpy(DDRinput, i1);
+	strcat(DDRinput, i2);
+	strcat(DDRinput, i3);
+	strcat(DDRinput, i4);
+
+
 	gi.cprintf(ent, PRINT_HIGH, "Input these keys to fish it up: %s, %s, %s, %s\n", i1, i2, i3, i4);
-
-
-
-
-	edict_t *enemy;
-	vec3_t	dir;
-	vec3_t	up;
-
-	vectoangles(forward, dir);
-	AngleVectors(dir, forward, right, up);
-
-	enemy = G_Spawn();
-	VectorCopy(start, enemy->s.origin);
-	/*VectorScale(forward, 200, enemy->velocity);
-	VectorMA(enemy->velocity, 200 + crandom() * 10.0, up, enemy->velocity);
-	VectorMA(enemy->velocity, crandom() * 10.0, right, enemy->velocity);
-	VectorSet(enemy->avelocity, 300, 300, 300);
-	enemy->movetype = MOVETYPE_BOUNCE;
-	enemy->clipmask = MASK_SHOT;
-	enemy->solid = SOLID_BBOX;*/
-
-	gi.linkentity(enemy);
+	gi.cprintf(ent, PRINT_HIGH, "%s\n", DDRinput);
 
 	
+	//might need to free DDRinput
+	
+		edict_t *enemy;
+		vec3_t	dir;
+		vec3_t	up;
 
-	gi.cprintf(ent, PRINT_HIGH, "%.2f\n", enemy->s.origin[0]);
-	enemy->s.origin[0] = enemy->s.origin[0] + 50;
-	enemy->s.origin[1] = enemy->s.origin[1] + 50;
-	enemy->s.origin[2] = enemy->s.origin[2] + 50;
+		vectoangles(forward, dir);
+		AngleVectors(dir, forward, right, up);
 
-	SP_monster_flipper(enemy);
+		enemy = G_Spawn();
+		VectorCopy(start, enemy->s.origin);
+
+		gi.linkentity(enemy);
+
+
+
+		gi.cprintf(ent, PRINT_HIGH, "%.2f\n", enemy->s.origin[0]);
+		enemy->s.origin[0] = enemy->s.origin[0] + 50;
+		enemy->s.origin[1] = enemy->s.origin[1] + 50;
+		enemy->s.origin[2] = enemy->s.origin[2] + 50;
+
+		SP_monster_flipper(enemy);
+	
 }
 
 
@@ -912,7 +916,6 @@ void Weapon_FishingRod(edict_t *ent)
 
 	Weapon_Generic(ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_fishingrod_fire);
 }
-
 
 
 
