@@ -21,7 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "g_local.h"
 #include "m_player.h"
-
+#include <stdlib.h>
+#include <time.h>
 
 static qboolean	is_quad;
 static byte		is_silenced;
@@ -771,6 +772,8 @@ void weapon_fishingrod_fire(edict_t *ent)
 	int		damage = 120;
 	float	radius;
 
+	srand(time(0));
+
 	radius = damage + 40;
 	if (is_quad)
 		damage *= 4;
@@ -795,6 +798,36 @@ void weapon_fishingrod_fire(edict_t *ent)
 
 	if (!((int)dmflags->value & DF_INFINITE_AMMO))
 		ent->client->pers.inventory[ent->client->ammo_index]--;
+
+	gi.cprintf(ent, PRINT_HIGH, "%.2f\n", level.time);
+	gi.cprintf(ent, PRINT_HIGH, "%d\n", rand()%100);
+	
+
+	edict_t *enemy;
+	vec3_t	dir;
+	vec3_t	up;
+
+	vectoangles(forward, dir);
+	AngleVectors(dir, forward, right, up);
+
+	enemy = G_Spawn();
+	VectorCopy(start, enemy->s.origin);
+	/*VectorScale(forward, 200, enemy->velocity);
+	VectorMA(enemy->velocity, 200 + crandom() * 10.0, up, enemy->velocity);
+	VectorMA(enemy->velocity, crandom() * 10.0, right, enemy->velocity);
+	VectorSet(enemy->avelocity, 300, 300, 300);
+	enemy->movetype = MOVETYPE_BOUNCE;
+	enemy->clipmask = MASK_SHOT;
+	enemy->solid = SOLID_BBOX;*/
+
+	gi.linkentity(enemy);
+
+	gi.cprintf(ent, PRINT_HIGH, "%.2f\n", enemy->s.origin[0]);
+	enemy->s.origin[0] = enemy->s.origin[0] + 50;
+	enemy->s.origin[1] = enemy->s.origin[1] + 50;
+	enemy->s.origin[2] = enemy->s.origin[2] + 50;
+
+	SP_monster_flipper(enemy);
 }
 
 
