@@ -1048,12 +1048,10 @@ void ClientCommand (edict_t *ent)
 		Cmd_Wave_f (ent);
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
-
-
-
 	else if (Q_stricmp(cmd, "DDR") == 0)
 		Cmd_DDR(ent);
-
+	else if (Q_stricmp(cmd, "money") == 0)
+		Cmd_Money_HUD(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

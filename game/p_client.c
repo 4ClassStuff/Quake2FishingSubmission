@@ -36,6 +36,8 @@ void SP_misc_teleporter_dest (edict_t *ent);
 // we use carnal knowledge of the maps to fix the coop spot targetnames to match
 // that of the nearest named single player spot
 
+int money = 10000;
+
 static void SP_FixCoopSpots (edict_t *self)
 {
 	edict_t	*spot;
