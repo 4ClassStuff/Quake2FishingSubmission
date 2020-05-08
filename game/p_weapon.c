@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdlib.h>
 #include <time.h>
 
+
 static qboolean	is_quad;
 static byte		is_silenced;
 
@@ -771,6 +772,7 @@ void weapon_fishingrod_fire(edict_t *ent)
 	vec3_t	start;
 	int		damage = 120;
 	float	radius;
+	_Bool casted = false;
 
 	srand(time(0));
 
@@ -799,9 +801,78 @@ void weapon_fishingrod_fire(edict_t *ent)
 	if (!((int)dmflags->value & DF_INFINITE_AMMO))
 		ent->client->pers.inventory[ent->client->ammo_index]--;
 
+	casted = true;
+
 	gi.cprintf(ent, PRINT_HIGH, "%.2f\n", level.time);
 	gi.cprintf(ent, PRINT_HIGH, "%d\n", rand()%100);
 	
+	char *i1;
+	char *i2;
+	char *i3;
+	char *i4;
+
+	//i1 = "TEST";
+
+	//gi.cprintf(ent, PRINT_HIGH, "%s\n", i1);
+
+	int input = 0;
+
+	while (input == 0){
+		input = rand() % 4;
+	}
+	if (input == 1)
+		i1 = "UP";
+	else if (input == 2)
+		i1 = "DOWN";
+	else if (input == 3)
+		i1 = "RIGHT";
+	else if (input == 4)
+		i1 = "LEFT";
+
+	input = 0;
+	while (input == 0){
+		input = rand() % 4;
+	}
+	if (input == 1)
+		i2 = "UP";
+	else if (input == 2)
+		i2 = "DOWN";
+	else if (input == 3)
+		i2 = "RIGHT";
+	else if (input == 4)
+		i2 = "LEFT";
+
+	input = 0;
+	while (input == 0){
+		input = rand() % 4;
+	}
+	if (input == 1)
+		i3 = "UP";
+	else if (input == 2)
+		i3 = "DOWN";
+	else if (input == 3)
+		i3 = "RIGHT";
+	else if (input == 4)
+		i3 = "LEFT";
+
+	input = 0;
+	while (input == 0){
+		input = rand() % 4;
+	}
+	if (input == 1)
+		i4 = "UP";
+	else if (input == 2)
+		i4 = "DOWN";
+	else if (input == 3)
+		i4 = "RIGHT";
+	else if (input == 4)
+		i4 = "LEFT";
+
+
+	gi.cprintf(ent, PRINT_HIGH, "Input these keys to fish it up: %s, %s, %s, %s\n", i1, i2, i3, i4);
+
+
+
 
 	edict_t *enemy;
 	vec3_t	dir;
@@ -821,6 +892,8 @@ void weapon_fishingrod_fire(edict_t *ent)
 	enemy->solid = SOLID_BBOX;*/
 
 	gi.linkentity(enemy);
+
+	
 
 	gi.cprintf(ent, PRINT_HIGH, "%.2f\n", enemy->s.origin[0]);
 	enemy->s.origin[0] = enemy->s.origin[0] + 50;
