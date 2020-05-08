@@ -35,6 +35,7 @@ void Weapon_Grenade (edict_t *ent);
 void Weapon_GrenadeLauncher (edict_t *ent);
 void Weapon_Railgun (edict_t *ent);
 void Weapon_BFG (edict_t *ent);
+void Weapon_FishingRod(edict_t *ent);//declared fishing rod
 
 gitem_armor_t jacketarmor_info	= { 25,  50, .30, .00, ARMOR_JACKET};
 gitem_armor_t combatarmor_info	= { 50, 100, .60, .30, ARMOR_COMBAT};
@@ -1312,7 +1313,7 @@ always owned, never in the world
 
 
 
-
+//////FISHING ROD//////////////////////////////////////////////////////////////////
 
 
 
@@ -1320,11 +1321,11 @@ always owned, never in the world
 always owned, never in the world
 */
 	{
-		"Fishing Rod",
+		"FishingRod",
 		Pickup_Weapon,
 		Use_Weapon,
 		Drop_Weapon,
-		Weapon_GrenadeLauncher,
+		Weapon_FishingRod,
 		"misc/w_pkup.wav",
 		"models/weapons/g_machn/tris.md2", EF_ROTATE,
 		"models/weapons/v_machn/tris.md2",
@@ -1345,7 +1346,7 @@ always owned, never in the world
 
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /*QUAKED weapon_shotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
