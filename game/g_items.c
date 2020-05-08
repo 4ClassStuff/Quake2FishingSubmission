@@ -1320,11 +1320,11 @@ always owned, never in the world
 always owned, never in the world
 */
 	{
-		"FishingRod",
+		"Fishing Rod",
 		Pickup_Weapon,
 		Use_Weapon,
 		Drop_Weapon,
-		Weapon_Shotgun,
+		Weapon_GrenadeLauncher,
 		"misc/w_pkup.wav",
 		"models/weapons/g_machn/tris.md2", EF_ROTATE,
 		"models/weapons/v_machn/tris.md2",
