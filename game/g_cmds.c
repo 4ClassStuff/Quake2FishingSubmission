@@ -904,7 +904,12 @@ void Cmd_PlayerList_f(edict_t *ent)
 int inputCount = 0;
 extern char DDRinput[100];
 
+
+///INPUT FOR FISHING
+
+
 void Cmd_DDR(edict_t *ent){
+	extern int money;
 	_Bool fished = false;
 	char *input;
 	input = gi.args();
@@ -949,6 +954,7 @@ void Cmd_DDR(edict_t *ent){
 
 	if (fished == true){
 		gi.cprintf(ent, PRINT_HIGH, "SUCCESSFULLY caught!\n");
+		money += 100;
 		free(DDRinput);
 	}
 
